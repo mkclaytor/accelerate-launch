@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accelerate by Accenture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #ffffff;
+      background-image:
+        linear-gradient(rgba(161,0,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(161,0,255,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    /* Purple top bar */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: #A100FF;
+      box-shadow: 0 0 24px 2px rgba(161,0,255,.4);
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e8e8e8;
+      border-left: 4px solid #A100FF;
+      border-radius: 0 12px 12px 0;
+      padding: 48px 56px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 48px rgba(0,0,0,.08);
+    }
+
+    .logo {
+      width: 64px; height: 64px;
+      background: #A100FF;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(161,0,255,.35);
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: #0a0a0a;
+      margin-bottom: 8px;
+    }
+    h1 span { color: #A100FF; }
+
+    .subtitle {
+      font-size: .9rem;
+      color: #888;
+      margin-bottom: 36px;
+      letter-spacing: .02em;
+    }
+
+    /* Status indicator */
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: .88rem;
+      color: #555;
+      margin-bottom: 28px;
+      min-height: 28px;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #A100FF;
+      animation: pulse 1.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .dot.done  { background: #00c853; animation: none; }
+    .dot.error { background: #ff3d3d; animation: none; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.7); }
+    }
+
+    .btn {
+      display: inline-block;
+      background: #A100FF;
+      color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 36px;
+      border-radius: 0;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(161,0,255,.3);
+      transition: background .15s, box-shadow .15s;
+      margin-bottom: 20px;
+    }
+    .btn:hover { background: #b820ff; box-shadow: 0 6px 28px rgba(161,0,255,.5); }
+
+    .instructions {
+      background: #faf5ff;
+      border: 1px solid rgba(161,0,255,.15);
+      border-radius: 8px;
+      padding: 20px 24px;
+      text-align: left;
+      margin-top: 24px;
+    }
+    .instructions h3 {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #A100FF;
+      margin-bottom: 12px;
+    }
+    .instructions ol {
+      padding-left: 18px;
+      color: #444;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+    .instructions code {
+      background: #f0e8ff;
+      color: #7800BF;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: .82rem;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: .72rem;
+      color: #bbb;
+      letter-spacing: .04em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">&#62;</div>
+  <h1>Accelerate <span>by Accenture</span></h1>
+  <p class="subtitle">Jira test path automation tool</p>
+
+  <div class="status" id="status">
+    <span class="dot" id="dot"></span>
+    <span id="status-text">Launching app on your machine…</span>
+  </div>
+
+  <a class="btn" href="accelerate://launch" id="launch-btn"
+     onclick="handleLaunch()">
+    &#62;&nbsp; Launch Accelerate
+  </a>
+
+  <div class="instructions" id="first-time" style="display:none">
+    <h3>First time? One-time setup required</h3>
+    <ol>
+      <li>Download the <strong>Accelerate</strong> folder from the team SharePoint / shared drive</li>
+      <li>Place the folder anywhere on your computer</li>
+      <li>Double-click <code>install_protocol.bat</code> inside the folder</li>
+      <li>Come back here and click <strong>Launch Accelerate</strong></li>
+    </ol>
+  </div>
+</div>
+
+<p class="footer">Accelerate by Accenture &nbsp;·&nbsp; Internal tool &nbsp;·&nbsp; Not for external distribution</p>
+
+<script>
+  var launched = false;
+
+  function handleLaunch() {
+    launched = true;
+    document.getElementById('dot').className = 'dot done';
+    document.getElementById('status-text').textContent = 'App launched — check your browser for the Accelerate tab.';
+  }
+
+  // Auto-trigger on load after a short delay
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (!launched) {
+        window.location.href = 'accelerate://launch';
+        launched = true;
+
+        // After 2s check if it likely worked
+        setTimeout(function() {
+          document.getElementById('dot').className = 'dot done';
+          document.getElementById('status-text').textContent =
+            'Launched! If nothing opened, click the button above.';
+          document.getElementById('first-time').style.display = 'block';
+        }, 2000);
+      }
+    }, 800);
+  });
+</script>
+
+</body>
+</html>
